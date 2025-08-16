@@ -3,6 +3,12 @@
 
 package types
 
+type BasicRequest struct {
+	Page int    `json:"page,optional"`
+	Size int    `json:"size,optional"`
+	Name string `json:"name,optional"`
+}
+
 type DeviceLisBasic struct {
 	Identity    string `json:"identity"`
 	ProductName string `json:"product_name"`
@@ -12,12 +18,26 @@ type DeviceLisBasic struct {
 }
 
 type DeviceListRequest struct {
-	Page int    `json:"page,optional"`
-	Size int    `json:"size,optional"`
-	Name string `json:"name,optional"`
+	BasicRequest
 }
 
 type DeviceListResponse struct {
 	List  []*DeviceLisBasic `json:"list"`
 	Count int64             `json:"count"`
+}
+
+type ProductLisBasic struct {
+	Identity  string `json:"identity"`
+	Name      string `json:"name"`
+	Key       string `json:"key"`
+	CreatedAt string `json:"created_at"`
+}
+
+type ProductListRequest struct {
+	BasicRequest
+}
+
+type ProductListResponse struct {
+	List  []*ProductLisBasic `json:"list"`
+	Count int64              `json:"count"`
 }

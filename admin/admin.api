@@ -1,9 +1,23 @@
 syntax = "v1"
 
-type DeviceListRequest {
+service admin-api {
+	// 设备管理
+	@handler DeviceListHandler
+	post /device/list (DeviceListRequest) returns (DeviceListResponse)
+
+	// 产品管理
+	@handler ProductListHandler
+	post /product/list (ProductListRequest) returns (ProductListResponse)
+}
+
+type BasicRequest {
 	Page int    `json:"page,optional"`
 	Size int    `json:"size,optional"`
 	Name string `json:"name,optional"`
+}
+
+type DeviceListRequest {
+	BasicRequest
 }
 
 type DeviceLisBasic {
@@ -19,8 +33,19 @@ type DeviceListResponse {
 	Count int64             `json:"count"`
 }
 
-service admin-api {
-	@handler DeviceListHandler
-	post /device/list (DeviceListRequest) returns (DeviceListResponse)
+type ProductListRequest {
+	BasicRequest
+}
+
+type ProductLisBasic {
+	Identity  string `json:"identity"`
+	Name      string `json:"name"`
+	Key       string `json:"key"`
+	CreatedAt string `json:"created_at"`
+}
+
+type ProductListResponse {
+	List  []*ProductLisBasic `json:"list"`
+	Count int64              `json:"count"`
 }
 
