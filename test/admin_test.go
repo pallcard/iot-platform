@@ -16,7 +16,12 @@ func TestDeviceList(t *testing.T) {
 		"size": 10,
 	}
 	data, _ := json.Marshal(m)
-	rep, err := helper.HttpPost(adminServiceAdd+"/device/list", data)
+
+	header := map[string]string{
+		"token": "",
+	}
+	headerByte, _ := json.Marshal(header)
+	rep, err := helper.HttpPost(adminServiceAdd+"/device/list", data, headerByte...)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -4,6 +4,7 @@
 package handler
 
 import (
+	"github.com/zeromicro/go-zero/rest/httpx"
 	"net/http"
 
 	"iot-platform/admin/internal/svc"
@@ -18,6 +19,13 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodPost,
 				Path:    "/device/list",
 				Handler: DeviceListHandler(serverCtx),
+			},
+			{
+				Method: http.MethodPost,
+				Path:   "/hello",
+				Handler: func(w http.ResponseWriter, r *http.Request) {
+					httpx.OkJsonCtx(r.Context(), w, map[string]string{"status": "ok"})
+				},
 			},
 		},
 	)
