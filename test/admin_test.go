@@ -8,15 +8,15 @@ import (
 	"testing"
 )
 
-var userServiceAdd = "http://127.0.0.1:14000"
+var adminServiceAdd = "http://127.0.0.1:14001"
 
-func TestUserLogin(t *testing.T) {
+func TestDeviceList(t *testing.T) {
 	m := define.M{
-		"username": "lk12",
-		"password": "lk123",
+		"page": 1,
+		"size": 10,
 	}
 	data, _ := json.Marshal(m)
-	rep, err := helper.HttpPost(userServiceAdd+"/user/login", data)
+	rep, err := helper.HttpPost(adminServiceAdd+"/device/list", data)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -35,7 +35,7 @@ func (l *DeviceListLogic) DeviceList(req *types.DeviceListRequest) (resp *types.
 	err = models.GetDeviceList(req.Name).Count(&count).Limit(limit).Offset(offset).Find(&data).Error
 	if err != nil {
 		logx.Error("[DB ERROR]:", err)
-		return nil, err
+		return
 	}
 	resp.Count = count
 	resp.List = data

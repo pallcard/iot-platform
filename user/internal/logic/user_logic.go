@@ -26,8 +26,7 @@ func NewUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserLogic {
 	}
 }
 
-func (l *UserLogic) User(req *types.UserLoginRequest) (resp *types.UserLoginResponse, err error) {
-	// todo: add your logic here and delete this line
+func (l *UserLogic) UserLogin(req *types.UserLoginRequest) (resp *types.UserLoginResponse, err error) {
 	resp = new(types.UserLoginResponse)
 
 	ub := new(models.UserBasic)

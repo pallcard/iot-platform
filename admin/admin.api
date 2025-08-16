@@ -21,6 +21,6 @@ type DeviceListResponse {
 
 service admin-api {
 	@handler DeviceListHandler
-	get /device/list (DeviceListRequest) returns (DeviceListResponse)
+	post /device/list (DeviceListRequest) returns (DeviceListResponse)
 }
 
