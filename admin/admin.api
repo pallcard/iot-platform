@@ -16,7 +16,7 @@ type DeviceLisBasic {
 
 type DeviceListResponse {
 	List  []*DeviceLisBasic `json:"list"`
-	Count int64               `json:"count"`
+	Count int64             `json:"count"`
 }
 
 service admin-api {

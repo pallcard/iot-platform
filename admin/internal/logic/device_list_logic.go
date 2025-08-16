@@ -26,7 +26,6 @@ func NewDeviceListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Device
 }
 
 func (l *DeviceListLogic) DeviceList(req *types.DeviceListRequest) (resp *types.DeviceListResponse, err error) {
-	// todo: add your logic here and delete this line
 	limit := helper.If(req.Size == 0, 20, req.Size).(int)
 	offset := helper.If(req.Size == 0, 0, (req.Page-1)*req.Size).(int)
 
