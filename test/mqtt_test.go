@@ -22,20 +22,20 @@ func TestMqtt(t *testing.T) {
 		t.Fatal(conn.Error())
 	}
 
-	//if subscribe := client.Subscribe("/topic/#", 0, func(client mqtt.Client, message mqtt.Message) {
-	//	fmt.Printf("subscribe_MESSAGE:%s\n", message.Payload())
-	//	fmt.Printf("subscribe_Topic:%s\n", message.Topic())
-	//}); subscribe.Wait() && subscribe.Error() != nil {
-	//	t.Fatal(subscribe.Error())
-	//}
+	if subscribe := client.Subscribe("/sys/#", 0, func(client mqtt.Client, message mqtt.Message) {
+		fmt.Printf("subscribe_MESSAGE:%s\n", message.Payload())
+		fmt.Printf("subscribe_Topic:%s\n", message.Topic())
+	}); subscribe.Wait() && subscribe.Error() != nil {
+		t.Fatal(subscribe.Error())
+	}
 
 	if publish := client.Publish("/sys/1/1/ping", 0, false, "hello"); publish.Wait() && publish.Error() != nil {
 		t.Fatal(publish.Error())
 	}
 
-	time.Sleep(time.Second * 2)
+	time.Sleep(time.Second * 3600)
 
-	if unsubscribe := client.Unsubscribe("/topic/#"); unsubscribe.Wait() && unsubscribe.Error() != nil {
+	if unsubscribe := client.Unsubscribe("/sys/#"); unsubscribe.Wait() && unsubscribe.Error() != nil {
 		t.Fatal(unsubscribe.Error())
 	}
 

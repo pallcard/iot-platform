@@ -23,6 +23,9 @@ const (
 
 type SendMessageReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	ProductKey    string                 `protobuf:"bytes,1,opt,name=product_key,json=productKey,proto3" json:"product_key,omitempty"`
+	DeviceKey     string                 `protobuf:"bytes,2,opt,name=device_key,json=deviceKey,proto3" json:"device_key,omitempty"`
+	Data          string                 `protobuf:"bytes,3,opt,name=data,proto3" json:"data,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -55,6 +58,27 @@ func (x *SendMessageReq) ProtoReflect() protoreflect.Message {
 // Deprecated: Use SendMessageReq.ProtoReflect.Descriptor instead.
 func (*SendMessageReq) Descriptor() ([]byte, []int) {
 	return file_device_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *SendMessageReq) GetProductKey() string {
+	if x != nil {
+		return x.ProductKey
+	}
+	return ""
+}
+
+func (x *SendMessageReq) GetDeviceKey() string {
+	if x != nil {
+		return x.DeviceKey
+	}
+	return ""
+}
+
+func (x *SendMessageReq) GetData() string {
+	if x != nil {
+		return x.Data
+	}
+	return ""
 }
 
 type SendMessageResp struct {
@@ -97,8 +121,13 @@ var File_device_proto protoreflect.FileDescriptor
 
 const file_device_proto_rawDesc = "" +
 	"\n" +
-	"\fdevice.proto\x12\x06device\"\x10\n" +
-	"\x0eSendMessageReq\"\x11\n" +
+	"\fdevice.proto\x12\x06device\"d\n" +
+	"\x0eSendMessageReq\x12\x1f\n" +
+	"\vproduct_key\x18\x01 \x01(\tR\n" +
+	"productKey\x12\x1d\n" +
+	"\n" +
+	"device_key\x18\x02 \x01(\tR\tdeviceKey\x12\x12\n" +
+	"\x04data\x18\x03 \x01(\tR\x04data\"\x11\n" +
 	"\x0fSendMessageResp2H\n" +
 	"\x06Device\x12>\n" +
 	"\vSendMessage\x12\x16.device.SendMessageReq\x1a\x17.device.SendMessageRespB\n" +

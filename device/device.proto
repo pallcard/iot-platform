@@ -9,7 +9,9 @@ service Device {
 }
 
 message SendMessageReq {
-
+  string product_key = 1;
+  string device_key = 2;
+  string data = 3;
 }
 
 message SendMessageResp {

@@ -10,6 +10,8 @@ import (
 
 var topic = "/sys/#"
 
+var MC mqtt.Client
+
 // topic 约定
 // /sys/产品key/设备key/ping
 // /sys/产品key/设备key/receive
@@ -20,21 +22,21 @@ func NewMqttServer(mqttBroker, clientId, password string) {
 
 	opt.SetDefaultPublishHandler(publishHandler)
 
-	client := mqtt.NewClient(opt)
+	MC = mqtt.NewClient(opt)
 
-	if conn := client.Connect(); conn.Wait() && conn.Error() != nil {
+	if conn := MC.Connect(); conn.Wait() && conn.Error() != nil {
 		panic(conn.Error())
 	}
 
-	if subscribe := client.Subscribe(topic, 0, nil); subscribe.Wait() && subscribe.Error() != nil {
+	if subscribe := MC.Subscribe(topic, 0, nil); subscribe.Wait() && subscribe.Error() != nil {
 		panic(subscribe.Error())
 	}
 
 	defer func() {
-		if unsubscribe := client.Unsubscribe(topic); unsubscribe.Wait() && unsubscribe.Error() != nil {
+		if unsubscribe := MC.Unsubscribe(topic); unsubscribe.Wait() && unsubscribe.Error() != nil {
 			log.Println("[ERROR]:", unsubscribe.Error())
 		}
-		client.Disconnect(250)
+		MC.Disconnect(250)
 	}()
 
 	select {}
