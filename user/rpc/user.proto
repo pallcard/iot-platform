@@ -13,6 +13,14 @@ message UserAuthRsp {
   map<string, string> extend = 3;
 }
 
+message OpenAuthReq {
+  bytes body = 1;
+}
+
+message OpenAuthRsp {
+}
+
 service User {
   rpc Auth(UserAuthReq) returns (UserAuthRsp);
+  rpc OpenAuth(OpenAuthReq) returns (OpenAuthRsp);
 }

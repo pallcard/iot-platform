@@ -1,8 +1,13 @@
 Name: open-api
 Host: 0.0.0.0
 Port: 16001
-Rpc:
+DeviceRpc:
   Etcd:
     Hosts:
       - 192.168.101.50:2379
     Key: device.rpc
+UserRpc:
+  Etcd:
+    Hosts:
+      - 192.168.101.50:2379
+    Key: user.rpc

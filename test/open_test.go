@@ -15,7 +15,7 @@ func TestSendMessage(t *testing.T) {
 		"product_key": "1",
 		"device_key":  "device_key",
 		"data":        "hello!!!!",
-		"sign":        "4d62a91d0588320d314001828da9e1db",
+		"sign":        "e8c68ed6bbec94d85fcfdf8bb9885cea",
 	})
 	rep, err := helper.HttpPost(openServiceAddr+"/sendMessage", data)
 	if err != nil {

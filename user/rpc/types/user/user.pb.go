@@ -125,6 +125,86 @@ func (x *UserAuthRsp) GetExtend() map[string]string {
 	return nil
 }
 
+type OpenAuthReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Body          []byte                 `protobuf:"bytes,1,opt,name=body,proto3" json:"body,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OpenAuthReq) Reset() {
+	*x = OpenAuthReq{}
+	mi := &file_user_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OpenAuthReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OpenAuthReq) ProtoMessage() {}
+
+func (x *OpenAuthReq) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OpenAuthReq.ProtoReflect.Descriptor instead.
+func (*OpenAuthReq) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *OpenAuthReq) GetBody() []byte {
+	if x != nil {
+		return x.Body
+	}
+	return nil
+}
+
+type OpenAuthRsp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OpenAuthRsp) Reset() {
+	*x = OpenAuthRsp{}
+	mi := &file_user_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OpenAuthRsp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OpenAuthRsp) ProtoMessage() {}
+
+func (x *OpenAuthRsp) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OpenAuthRsp.ProtoReflect.Descriptor instead.
+func (*OpenAuthRsp) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{3}
+}
+
 var File_user_proto protoreflect.FileDescriptor
 
 const file_user_proto_rawDesc = "" +
@@ -139,9 +219,13 @@ const file_user_proto_rawDesc = "" +
 	"\x06extend\x18\x03 \x03(\v2!.template.UserAuthRsp.ExtendEntryR\x06extend\x1a9\n" +
 	"\vExtendEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x012<\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"!\n" +
+	"\vOpenAuthReq\x12\x12\n" +
+	"\x04body\x18\x01 \x01(\fR\x04body\"\r\n" +
+	"\vOpenAuthRsp2v\n" +
 	"\x04User\x124\n" +
-	"\x04Auth\x12\x15.template.UserAuthReq\x1a\x15.template.UserAuthRspB\bZ\x06./userb\x06proto3"
+	"\x04Auth\x12\x15.template.UserAuthReq\x1a\x15.template.UserAuthRsp\x128\n" +
+	"\bOpenAuth\x12\x15.template.OpenAuthReq\x1a\x15.template.OpenAuthRspB\bZ\x06./userb\x06proto3"
 
 var (
 	file_user_proto_rawDescOnce sync.Once
@@ -155,18 +239,22 @@ func file_user_proto_rawDescGZIP() []byte {
 	return file_user_proto_rawDescData
 }
 
-var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_user_proto_goTypes = []any{
 	(*UserAuthReq)(nil), // 0: template.UserAuthReq
 	(*UserAuthRsp)(nil), // 1: template.UserAuthRsp
-	nil,                 // 2: template.UserAuthRsp.ExtendEntry
+	(*OpenAuthReq)(nil), // 2: template.OpenAuthReq
+	(*OpenAuthRsp)(nil), // 3: template.OpenAuthRsp
+	nil,                 // 4: template.UserAuthRsp.ExtendEntry
 }
 var file_user_proto_depIdxs = []int32{
-	2, // 0: template.UserAuthRsp.extend:type_name -> template.UserAuthRsp.ExtendEntry
+	4, // 0: template.UserAuthRsp.extend:type_name -> template.UserAuthRsp.ExtendEntry
 	0, // 1: template.User.Auth:input_type -> template.UserAuthReq
-	1, // 2: template.User.Auth:output_type -> template.UserAuthRsp
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
+	2, // 2: template.User.OpenAuth:input_type -> template.OpenAuthReq
+	1, // 3: template.User.Auth:output_type -> template.UserAuthRsp
+	3, // 4: template.User.OpenAuth:output_type -> template.OpenAuthRsp
+	3, // [3:5] is the sub-list for method output_type
+	1, // [1:3] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
@@ -183,7 +271,7 @@ func file_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_user_proto_rawDesc), len(file_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

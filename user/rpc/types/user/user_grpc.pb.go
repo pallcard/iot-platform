@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	User_Auth_FullMethodName = "/template.User/Auth"
+	User_Auth_FullMethodName     = "/template.User/Auth"
+	User_OpenAuth_FullMethodName = "/template.User/OpenAuth"
 )
 
 // UserClient is the client API for User service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserClient interface {
 	Auth(ctx context.Context, in *UserAuthReq, opts ...grpc.CallOption) (*UserAuthRsp, error)
+	OpenAuth(ctx context.Context, in *OpenAuthReq, opts ...grpc.CallOption) (*OpenAuthRsp, error)
 }
 
 type userClient struct {
@@ -47,11 +49,22 @@ func (c *userClient) Auth(ctx context.Context, in *UserAuthReq, opts ...grpc.Cal
 	return out, nil
 }
 
+func (c *userClient) OpenAuth(ctx context.Context, in *OpenAuthReq, opts ...grpc.CallOption) (*OpenAuthRsp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(OpenAuthRsp)
+	err := c.cc.Invoke(ctx, User_OpenAuth_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility.
 type UserServer interface {
 	Auth(context.Context, *UserAuthReq) (*UserAuthRsp, error)
+	OpenAuth(context.Context, *OpenAuthReq) (*OpenAuthRsp, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -64,6 +77,9 @@ type UnimplementedUserServer struct{}
 
 func (UnimplementedUserServer) Auth(context.Context, *UserAuthReq) (*UserAuthRsp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Auth not implemented")
+}
+func (UnimplementedUserServer) OpenAuth(context.Context, *OpenAuthReq) (*OpenAuthRsp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OpenAuth not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 func (UnimplementedUserServer) testEmbeddedByValue()              {}
@@ -104,6 +120,24 @@ func _User_Auth_Handler(srv interface{}, ctx context.Context, dec func(interface
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_OpenAuth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OpenAuthReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).OpenAuth(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_OpenAuth_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).OpenAuth(ctx, req.(*OpenAuthReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -114,6 +148,10 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Auth",
 			Handler:    _User_Auth_Handler,
+		},
+		{
+			MethodName: "OpenAuth",
+			Handler:    _User_OpenAuth_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
