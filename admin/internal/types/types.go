@@ -9,6 +9,21 @@ type BasicRequest struct {
 	Name string `json:"name,optional"`
 }
 
+type DeviceCreateRequest struct {
+	Name            string `json:"name"`
+	ProductIdentity string `json:"product_identity"`
+}
+
+type DeviceCreateResponse struct {
+}
+
+type DeviceDeleteRequest struct {
+	Identity string `json:"identity"`
+}
+
+type DeviceDeleteResponse struct {
+}
+
 type DeviceLisBasic struct {
 	Identity    string `json:"identity"`
 	ProductName string `json:"product_name"`
@@ -26,10 +41,34 @@ type DeviceListResponse struct {
 	Count int64             `json:"count"`
 }
 
+type DeviceModifyRequest struct {
+	Identity string `json:"identity"`
+	DeviceCreateRequest
+}
+
+type DeviceModifyResponse struct {
+}
+
+type ProductCreateRequest struct {
+	Name string `json:"name"`
+	Desc string `json:"desc"`
+}
+
+type ProductCreateResponse struct {
+}
+
+type ProductDeleteRequest struct {
+	Identity string `json:"identity"`
+}
+
+type ProductDeleteResponse struct {
+}
+
 type ProductLisBasic struct {
 	Identity  string `json:"identity"`
 	Name      string `json:"name"`
 	Key       string `json:"key"`
+	Desc      string `json:"desc"`
 	CreatedAt string `json:"created_at"`
 }
 
@@ -40,4 +79,12 @@ type ProductListRequest struct {
 type ProductListResponse struct {
 	List  []*ProductLisBasic `json:"list"`
 	Count int64              `json:"count"`
+}
+
+type ProductModifyRequest struct {
+	Identity string `json:"identity"`
+	ProductCreateRequest
+}
+
+type ProductModifyResponse struct {
 }

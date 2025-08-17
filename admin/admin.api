@@ -3,11 +3,35 @@ syntax = "v1"
 service admin-api {
 	// 设备管理
 	@handler DeviceListHandler
-	post /device/list (DeviceListRequest) returns (DeviceListResponse)
+	get /device/list (DeviceListRequest) returns (DeviceListResponse)
+
+	// 创建设备
+	@handler DeviceCreateHandler
+	post /device/create (DeviceCreateRequest) returns (DeviceCreateResponse)
+
+	// 修改设备
+	@handler DeviceModifyHandler
+	put /device/modify (DeviceModifyRequest) returns (DeviceModifyResponse)
+
+	// 删除设备
+	@handler DeviceDeleteHandler
+	delete /device/delete (DeviceDeleteRequest) returns (DeviceDeleteResponse)
 
 	// 产品管理
 	@handler ProductListHandler
-	post /product/list (ProductListRequest) returns (ProductListResponse)
+	get /product/list (ProductListRequest) returns (ProductListResponse)
+
+	// 创建产品
+	@handler ProductCreateHandler
+	post /product/create (ProductCreateRequest) returns (ProductCreateResponse)
+
+	// 修改产品
+	@handler ProductModifyHandler
+	put /product/modify (ProductModifyRequest) returns (ProductModifyResponse)
+
+	// 删除产品
+	@handler ProductDeleteHandler
+	delete /product/delete (ProductDeleteRequest) returns (ProductDeleteResponse)
 }
 
 type BasicRequest {
@@ -15,6 +39,46 @@ type BasicRequest {
 	Size int    `json:"size,optional"`
 	Name string `json:"name,optional"`
 }
+
+type DeviceDeleteRequest {
+	Identity string `json:"identity"`
+}
+
+type DeviceDeleteResponse {}
+
+type DeviceModifyRequest {
+	Identity string `json:"identity"`
+	DeviceCreateRequest
+}
+
+type DeviceModifyResponse {}
+
+type DeviceCreateRequest {
+	Name            string `json:"name"`
+	ProductIdentity string `json:"product_identity"`
+}
+
+type DeviceCreateResponse {}
+
+type ProductDeleteRequest {
+	Identity string `json:"identity"`
+}
+
+type ProductDeleteResponse {}
+
+type ProductModifyRequest {
+	Identity string `json:"identity"`
+	ProductCreateRequest
+}
+
+type ProductModifyResponse {}
+
+type ProductCreateRequest {
+	Name string `json:"name"`
+	Desc string `json:"desc"`
+}
+
+type ProductCreateResponse {}
 
 type DeviceListRequest {
 	BasicRequest
@@ -41,6 +105,7 @@ type ProductLisBasic {
 	Identity  string `json:"identity"`
 	Name      string `json:"name"`
 	Key       string `json:"key"`
+	Desc      string `json:"desc"`
 	CreatedAt string `json:"created_at"`
 }
 

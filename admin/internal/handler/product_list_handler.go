@@ -1,12 +1,12 @@
 package handler
 
 import (
-	"net/http"
-
 	"github.com/zeromicro/go-zero/rest/httpx"
 	"iot-platform/admin/internal/logic"
 	"iot-platform/admin/internal/svc"
 	"iot-platform/admin/internal/types"
+	"net/http"
+	"strconv"
 )
 
 func ProductListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
@@ -16,6 +16,10 @@ func ProductListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
+
+		req.Page, _ = strconv.Atoi(r.Form.Get("page"))
+		req.Size, _ = strconv.Atoi(r.Form.Get("size"))
+		req.Name = r.Form.Get("name")
 
 		l := logic.NewProductListLogic(r.Context(), svcCtx)
 		resp, err := l.ProductList(&req)

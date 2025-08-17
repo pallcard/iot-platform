@@ -16,13 +16,43 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			{
 				Method:  http.MethodPost,
+				Path:    "/device/create",
+				Handler: DeviceCreateHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/device/delete",
+				Handler: DeviceDeleteHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
 				Path:    "/device/list",
 				Handler: DeviceListHandler(serverCtx),
 			},
 			{
+				Method:  http.MethodPut,
+				Path:    "/device/modify",
+				Handler: DeviceModifyHandler(serverCtx),
+			},
+			{
 				Method:  http.MethodPost,
+				Path:    "/product/create",
+				Handler: ProductCreateHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/product/delete",
+				Handler: ProductDeleteHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
 				Path:    "/product/list",
 				Handler: ProductListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPut,
+				Path:    "/product/modify",
+				Handler: ProductModifyHandler(serverCtx),
 			},
 		},
 	)
