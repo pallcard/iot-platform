@@ -25,11 +25,12 @@ type DeviceDeleteResponse struct {
 }
 
 type DeviceLisBasic struct {
-	Identity    string `json:"identity"`
-	ProductName string `json:"product_name"`
-	Name        string `json:"name"`
-	Key         string `json:"key"`
-	Secret      string `json:"secret"`
+	Identity       string `json:"identity"`
+	ProductName    string `json:"product_name"`
+	Name           string `json:"name"`
+	Key            string `json:"key"`
+	Secret         string `json:"secret"`
+	LastOnlineTime int64  `json:"last_online_time"`
 }
 
 type DeviceListRequest struct {
