@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package device;
+
+option go_package = "./device";
+
+service Device {
+  rpc SendMessage(SendMessageReq) returns (SendMessageResp);
+}
+
+message SendMessageReq {
+
+}
+
+message SendMessageResp {
+
+}
+
