@@ -4,6 +4,8 @@ import (
 	"context"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
+	"iot-platform/api"
+	"iot-platform/helper"
 	"iot-platform/models"
 
 	"iot-platform/admin/internal/svc"
@@ -39,6 +41,16 @@ func (l *DeviceCreateLogic) DeviceCreate(req *types.DeviceCreateRequest) (resp *
 		err = tx.Create(deviceBasic).Error
 		if err != nil {
 			logx.Error("[DB ERROR] : ", err)
+			return err
+		}
+
+		// 2. EMQX 中新增认证设备
+		err = api.CreateAuthUser(&api.CreateAuthUserRequest{
+			UserId:   deviceBasic.Key,
+			Password: helper.Md5(deviceBasic.Key + deviceBasic.Secret),
+		})
+		if err != nil {
+			logx.Error("[CreateAuthUse ERROR] : ", err)
 			return err
 		}
 

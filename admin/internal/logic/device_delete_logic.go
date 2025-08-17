@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 	"gorm.io/gorm"
+	"iot-platform/api"
 	"iot-platform/models"
 
 	"iot-platform/admin/internal/svc"
@@ -41,6 +42,14 @@ func (l *DeviceDeleteLogic) DeviceDelete(req *types.DeviceDeleteRequest) (resp *
 			logx.Error("[DB ERROR] : ", err)
 			return err
 		}
+
+		// 2. EMQX 中同步删除认证设备
+		err = api.DeleteAuthUser(deviceBasic.Key)
+		if err != nil {
+			logx.Error("[DeleteAuthUser ERROR] : ", err)
+			return err
+		}
+		return nil
 
 		return nil
 	})
